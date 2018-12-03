@@ -11,7 +11,7 @@
                 <div class="col-md-5">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" autocomplete="off">
+                            <input class="form-control" placeholder="Completion date" name="dp" ngbDatepicker #d="ngbDatepicker" autocomplete="off">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
                             </div>
@@ -24,4 +24,34 @@
             </div>
         </form>
     </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>Wash dishes</td>
+                <td>25-09-2018</td>
+                <td>Not complete</td>
+                <td class="icons">
+                    <button class="btn btn-success">
+                        <i class="fa fa-check"></i>
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <button class="btn btn-danger">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
