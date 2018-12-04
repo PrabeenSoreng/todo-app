@@ -6,12 +6,12 @@
         <form class="form-inline">
             <div class="form-row">
                 <div class="col-md-5">
-                    <input type="text" class="form-control" name="title" placeholder="Todo title" autocomplete="off">
+                    <input type="text" [(ngModel)]="newTodo.title" class="form-control" name="title" placeholder="Todo title" autocomplete="off">
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="form-control" placeholder="Completion date" name="dp" ngbDatepicker #d="ngbDatepicker" autocomplete="off">
+                            <input class="form-control" [(ngModel)]="newTodo.date" placeholder="Completion date" name="dp" ngbDatepicker #d="ngbDatepicker" autocomplete="off">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
                             </div>
@@ -19,12 +19,12 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-primary">Add Todo</button>
+                    <button class="btn btn-primary" (click)="addTodo()">Add Todo</button>
                 </div>
             </div>
         </form>
     </div>
-    <table class="table">
+    <table class="table" *ngIf="todos.length > 0">
         <thead>
             <tr>
                 <th></th>
@@ -35,11 +35,12 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr *ngFor="let todo of todos">
                 <td></td>
-                <td>Wash dishes</td>
-                <td>25-09-2018</td>
-                <td>Not complete</td>
+                <td>{{todo.title}}</td>
+                <td>{{todo.date.year}}-{{todo.date.month}}-{{todo.date.day}}`</td>
+                <td *ngIf="!todo.complete">Not complete</td>
+                <td *ngIf="todo.complete">Complete</td>
                 <td class="icons">
                     <button class="btn btn-success">
                         <i class="fa fa-check"></i>
