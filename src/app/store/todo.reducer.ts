@@ -21,6 +21,11 @@ export function todoReducer(state = [initialState], action: TodoActions) {
                 return todo.id === action.payload.id ? action.payload.newTodo : todo;
             });
         }
+        case ActionTypes.TOGGLE_TODO: {
+            return state.map(todo => {
+                return todo.id === action.payload.id ? Object.assign({}, todo, {complete: !action.payload.complete}) : todo;
+            });
+        }
         default: 
             return state;
     }

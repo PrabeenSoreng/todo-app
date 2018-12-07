@@ -49,7 +49,8 @@ export class AppComponent implements OnInit {
   }
 
   completeTodo(todo) {
-    this.todoService.completeTodo(todo);
+    // this.todoService.completeTodo(todo);
+    this.store.dispatch(new TodoActions.ToggleTodo(todo));
   }
 
   deleteTodo(todo) {
