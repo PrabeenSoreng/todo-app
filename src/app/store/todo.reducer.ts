@@ -8,10 +8,13 @@ const initialState: Todo = {
     complete: false
 };
 
-export function todoReducer(state = [initialState], action: TodoActions) {
+export function todoReducer(state = [], action: TodoActions) {
     console.log(state);
     console.log(action);
     switch(action.type) {
+        case ActionTypes.LOAD_TODO: {
+            return [...state, action.payload];
+        }
         case ActionTypes.ADD_TODO: {
             action.payload.id = state.length + 1;
             return [...state, action.payload];
@@ -25,6 +28,9 @@ export function todoReducer(state = [initialState], action: TodoActions) {
             return state.map(todo => {
                 return todo.id === action.payload.id ? Object.assign({}, todo, {complete: !action.payload.complete}) : todo;
             });
+        }
+        case ActionTypes.DELETE_TODO: {
+            return state.filter(todo => todo.id !== action.payload.id);
         }
         default: 
             return state;

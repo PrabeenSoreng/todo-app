@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   newTodo = new Todo();
 
   todos$: Observable<Todo[]>;
+  getTodos = [];
   todo: any;
   editForm: FormGroup
   titleValue: string;
@@ -30,7 +31,11 @@ export class AppComponent implements OnInit {
     private todoService: TodoDataService) {}
 
     ngOnInit() {
-      this.todos$ = this.store.select('todos')
+      this.todos$ = this.store.select('todos');
+      this.getTodos = this.todoService.getAllTodos();
+      this.getTodos.forEach(todo => {
+        this.store.dispatch(new TodoActions.LoadTodo(todo));
+      });
     }
 
   get todos() {
@@ -40,8 +45,8 @@ export class AppComponent implements OnInit {
 
   addTodo() {
     if(this.newTodo.title && this.newTodo.date) {
-      // this.todoService.addTodo(this.newTodo);
       this.store.dispatch(new TodoActions.AddTodo(this.newTodo));
+      this.todoService.addTodo(this.newTodo);
       this.newTodo = new Todo();
       this.newTodo.title = '';
       this.newTodo.date = '';
@@ -49,12 +54,13 @@ export class AppComponent implements OnInit {
   }
 
   completeTodo(todo) {
-    // this.todoService.completeTodo(todo);
+    this.todoService.completeTodo(todo);
     this.store.dispatch(new TodoActions.ToggleTodo(todo));
   }
 
   deleteTodo(todo) {
     this.todoService.deleteTodoById(todo.id);
+    this.store.dispatch(new TodoActions.DeleteTodo({id: todo.id}));
   }
 
   initForm(todo) {
@@ -93,7 +99,7 @@ export class AppComponent implements OnInit {
   }
 
   updateTodo() {
-    // this.todoService.updateTodo(this.todo.id, this.editForm.value);
+    this.todoService.updateTodo(this.todo.id, this.editForm.value);
     const updatedTodo = {
       id: this.todo.id,
       title: this.editForm.value.title,

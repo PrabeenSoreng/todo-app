@@ -4,7 +4,9 @@ import { Todo } from '../class/todo';
 export const ActionTypes = {
     ADD_TODO: 'ADD_TODO',
     UPDATE_TODO: 'UPDATE_TODO',
-    TOGGLE_TODO: 'TOGGLE_TODO'
+    TOGGLE_TODO: 'TOGGLE_TODO',
+    DELETE_TODO: 'DELETE_TODO',
+    LOAD_TODO: 'LOAD_TODO'
 };
 
 export class AddTodo implements Action {
@@ -25,4 +27,16 @@ export class ToggleTodo implements Action {
     constructor(public payload: Todo) {}
 }
 
-export type TodoActions = AddTodo | UpdateTodo | ToggleTodo;
+export class DeleteTodo implements Action {
+    readonly type = ActionTypes.DELETE_TODO;
+
+    constructor(public payload: {id: number}) {}
+}
+
+export class LoadTodo implements Action {
+    readonly type = ActionTypes.LOAD_TODO;
+
+    constructor(public payload: any = null) {}
+}
+
+export type TodoActions = AddTodo | UpdateTodo | ToggleTodo | DeleteTodo | LoadTodo;
